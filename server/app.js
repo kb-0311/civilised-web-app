@@ -15,11 +15,15 @@ app.use(cookieParser());
 
 
 const userRoute = require('./routes/users');
+const postRoute = require('./routes/posts');
+
 
 
 
 
 app.use('/api/v1' , userRoute);
+app.use('/api/v1' , postRoute);
+
 app.use(errorMiddleware);
 
 

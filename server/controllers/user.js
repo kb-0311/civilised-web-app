@@ -350,3 +350,84 @@ exports.getUserPosts = async (req, res ,next) => {
 
   }
 };
+
+
+//Forgot Password Section
+
+exports.forgotPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return next(new ErrorHandler("User Not Found", 400));
+
+    }
+
+    const resetPasswordToken = user.getResetPasswordToken();
+
+    await user.save();
+
+    const resetUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/password/reset/${resetPasswordToken}`;
+
+    const message = `Reset Your Password by clicking on the link below: \n\n ${resetUrl}`;
+
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Reset Password",
+        message,
+      });
+
+      res.status(200).json({
+        success: true,
+        message: `Email sent to ${user.email}`,
+      });
+    } catch (error) {
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
+      await user.save();
+
+      return next(new ErrorHandler(error.message, 400));
+
+    }
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 400));
+
+  }
+};
+
+exports.resetPassword = async (req, res) => {
+  try {
+    const resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(req.params.token)
+      .digest("hex");
+
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return next(new ErrorHandler("Token is invalid or has expired", 401));
+
+      
+    }
+
+    user.password = req.body.password;
+
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Password Updated",
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 400));
+
+  }
+};
