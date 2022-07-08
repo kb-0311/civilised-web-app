@@ -124,10 +124,26 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
         owner: {
           $in: user.following,
         },
-      }).populate("owner likes comments.user");
+      }).populate("owner likes comments.commentedByUser");
   
       res.status(200).json({
         success: true,
+        posts: posts.reverse(),
+      });
+    } catch (error) {
+        return next(new ErrorHandler(error.message , 400));
+
+    }
+  });
+
+  exports.getAllPosts =catchAsyncErrors( async (req, res, next) => {
+    try {
+  
+      const posts = await Post.find().populate("owner likes comments.commentedByUser");
+      const totalPostCOunt = await Post.countDocuments();
+      res.status(200).json({
+        success: true,
+        numberOfPosts :totalPostCOunt,
         posts: posts.reverse(),
       });
     } catch (error) {
@@ -178,7 +194,9 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
       // Checking if comment already exists
   
       post.comments.forEach((item, index) => {
-        if (item.user.toString() === req.user._id.toString()) {
+        console.log(item);
+        console.log(item);
+        if (item.commentedByUser.toString() === req.user._id.toString()) {
           commentIndex = index;
         }
       });
@@ -194,7 +212,7 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
         });
       } else {
         post.comments.push({
-          user: req.user._id,
+          commentedByUser: req.user._id,
           comment: req.body.comment,
         });
   
@@ -222,6 +240,11 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
       // Checking If owner wants to delete
   
       if (post.owner.toString() === req.user._id.toString()) {
+        const comment = await Post.findById(req.body.commentId);
+        if (!comment) {
+          return next(new ErrorHandler("COmment not found or already deleted", 404));
+  
+        }
         if (req.body.commentId === undefined) {
             return next(new ErrorHandler("Comment Id is required", 404));
 
