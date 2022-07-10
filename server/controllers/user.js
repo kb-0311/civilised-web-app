@@ -102,7 +102,7 @@ exports.getMyProfile = catchAsyncErrors( async (req , res)=>{
 
 
 //following a user
-exports.followUser = async (req, res ,next) => {
+exports.followUser = catchAsyncErrors( async (req, res ,next) => {
   try {
     const userToFollow = await User.findById(req.params.id);
     const loggedInUser = await User.findById(req.user._id);
@@ -143,9 +143,9 @@ exports.followUser = async (req, res ,next) => {
     return next(new ErrorHandler(error.message , 400));
 
   }
-};
+});
 
-exports.updatePassword = async (req, res , next) => {
+exports.updatePassword =catchAsyncErrors( async (req, res , next) => {
   try {
     const user = await User.findById(req.user._id).select("+password");
 
@@ -173,9 +173,9 @@ exports.updatePassword = async (req, res , next) => {
     return next(new ErrorHandler(error.message, 401));
 
   }
-};
+});
 
-exports.updateProfile = async (req, res ,next) => {
+exports.updateProfile =catchAsyncErrors( async (req, res ,next) => {
   try {
     const user = await User.findById(req.user._id);
 
@@ -212,10 +212,10 @@ exports.updateProfile = async (req, res ,next) => {
     return next(new ErrorHandler(error.message, 401));
 
   }
-};
+});
 
 //delete my profile 
-exports.deleteMyProfile = async (req, res , next) => {
+exports.deleteMyProfile = catchAsyncErrors( async (req, res , next) => {
   try {
     const user = await User.findById(req.user._id);
     const posts = user.posts;
@@ -298,9 +298,9 @@ exports.deleteMyProfile = async (req, res , next) => {
     return next(new ErrorHandler(error.message, 400));
 
   }
-};
+});
 
-exports.getMyPosts = async (req, res ,next) => {
+exports.getMyPosts =catchAsyncErrors( async (req, res ,next) => {
   try {
     const user = await User.findById(req.user._id);
 
@@ -321,9 +321,9 @@ exports.getMyPosts = async (req, res ,next) => {
     return next(new ErrorHandler(error.message, 400));
 
   }
-};
+});
 
-exports.getUserPosts = async (req, res ,next) => {
+exports.getUserPosts =catchAsyncErrors( async (req, res ,next) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -349,12 +349,12 @@ exports.getUserPosts = async (req, res ,next) => {
     return next(new ErrorHandler(error.message, 400));
 
   }
-};
+});
 
 
 //Forgot Password Section
 
-exports.forgotPassword = async (req, res) => {
+exports.forgotPassword =catchAsyncErrors( async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
 
@@ -396,9 +396,9 @@ exports.forgotPassword = async (req, res) => {
     return next(new ErrorHandler(error.message, 400));
 
   }
-};
+});
 
-exports.resetPassword = async (req, res) => {
+exports.resetPassword =catchAsyncErrors( async (req, res) => {
   try {
     const resetPasswordToken = crypto
       .createHash("sha256")
@@ -430,4 +430,4 @@ exports.resetPassword = async (req, res) => {
     return next(new ErrorHandler(error.message, 400));
 
   }
-};
+});
