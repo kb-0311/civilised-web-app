@@ -1,0 +1,38 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+  }
+  .HeaderWrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+  
+  .header > a {
+    width: 2vmax;
+    height: 2vmax;
+    margin: 1vmax 4vmax;
+  }
+  .header > a > svg {
+    font-size: 2vmax;
+    transition: all 1s;
+    color: rgb(255, 136, 0);
+  }
+  
+  .header > a > svg:hover {
+    color: rgb(255, 136, 0);
+    transform: scale(1.35);
+  }
+  
+  @media screen and (max-width: 600px) {
+    .header > a {
+      width: 8vw;
+      height: 8vw;
+      margin: 1vw 3vw;
+    }
+    .header > a > svg {
+      font-size: 6vw;
+    }
+  }
