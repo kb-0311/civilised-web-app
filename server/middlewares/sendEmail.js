@@ -5,8 +5,8 @@ exports.sendEmail = async (options) => {
     host: "smtp.mailtrap.io",
     port: 2525,
     auth: {
-      user: "8975ee8dc5df9b",
-      pass: "04c1dff9686e5e"
+      user: process.env.SMPT_USER,
+      pass: process.env.SMPT_PASSWORD
     }
   });
 
