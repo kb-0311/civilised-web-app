@@ -354,7 +354,7 @@ exports.getUserPosts =catchAsyncErrors( async (req, res ,next) => {
 
 //Forgot Password Section
 
-exports.forgotPassword =catchAsyncErrors( async (req, res) => {
+exports.forgotPassword =catchAsyncErrors( async (req, res , next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
 
@@ -398,7 +398,7 @@ exports.forgotPassword =catchAsyncErrors( async (req, res) => {
   }
 });
 
-exports.resetPassword =catchAsyncErrors( async (req, res) => {
+exports.resetPassword =catchAsyncErrors( async (req, res , next) => {
   try {
     const resetPasswordToken = crypto
       .createHash("sha256")
