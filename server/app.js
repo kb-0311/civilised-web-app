@@ -8,7 +8,7 @@ const errorMiddleware = require("./middlewares/error");
 app.use(fileUpload());
 
 
-
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true },{limit : '50mb'}));
 app.use(cookieParser());
