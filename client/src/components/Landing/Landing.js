@@ -1,40 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as THREE from "three"
-import WAVES from 'vanta/dist/vanta.waves.min.js'
+import GLOBE from 'vanta/dist/vanta.globe.min.js'
 import Logo from '../../assets/logo.png'
 import './Landing.css'
 const Landing = () => {
 
     const [Waves, setWaves] = useState(null);
+    const [Globe, setGlobe] = useState(null);
     const ref = useRef(null);
 
     useEffect(() => {
         console.log(ref);
-        if (!Waves) {
-            setWaves(WAVES({
+        if (!Globe) {
+            setGlobe(GLOBE({
                 el:ref.current,
                 THREE,
                 mouseControls: true,
                 touchControls: true,
                 gyroControls: false,
-                minHeight: "200.00",
-                minWidth: "200.00",
-                scale: "1.00",
-                scaleMobile: "1.00",
-                color: 0x0,
-                shininess: "50.00",
-                waveHeight: "19.50",
-                waveSpeed: "1.25",
-                zoom: "0.79"
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0xff8600,
+                backgroundColor: 0x0
               }))
         }
 
         return () => {
-            if (Waves) Waves.destroy()
+            if (Globe) Globe.destroy()
           }
         
-      }, [Waves])
+      }, [Globe])
 
   return (
     

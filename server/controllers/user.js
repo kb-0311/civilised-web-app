@@ -92,11 +92,11 @@ exports.getAllUsers = catchAsyncErrors( async (req , res)=>{
 
 //Get My Profile
 exports.getMyProfile = catchAsyncErrors( async (req , res)=>{
-  const users = await User.findById(req.user._id).populate("posts followers following");;
+  const currentUser = await User.findById(req.user._id).populate("posts followers following");;
 
   res.status(200).json({
     success : true ,
-    users  : users
+    currentUser  : currentUser
 })
 })
 
