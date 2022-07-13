@@ -21,7 +21,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getAllUsers());
-  }, [dispatch])
+  }, [])
   
   
   return loading||usersLoading? (
@@ -39,12 +39,13 @@ const Home = () => {
                 caption={post.caption}
                 postImage={post.image.url}
                 likes={post.likes}
+                isLiked={false}
                 comments={post.comments}
                 ownerImage={post.owner.avatar.url}
                 ownerName={post.owner.name}
                 ownerId={post.owner._id} 
               />)
-            ) : (<Typography variant='h6'>No posts</Typography>)
+              ): (<Typography variant='h6'>No posts</Typography>)
           }
           
         </div>

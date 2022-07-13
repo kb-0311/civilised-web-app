@@ -9,17 +9,44 @@ import {
   Delete,
 } from "@mui/icons-material";
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import './Post.css'
-const Post = ({postId , caption , postImage , likes=[] , comments =[] , ownerImage ,ownerId ,ownerName , isDelete=false , isAccount=false}) => {
+import AlertTemplate from '../Metadata/AlertTemplate';
+import { likePost } from '../../Actions/PostsActions';
+import { useEffect } from 'react';
+import { getPosts } from '../../Actions/UserActions';
+const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked , ownerImage ,ownerId ,ownerName , isDelete=false , isAccount=false}) => {
   
+    const dispatch = useDispatch();
     const [likesUser, setLikesUser] = useState(null);
-    const [liked, setLiked] = useState(false);
+    const {currentUser} = useSelector(state => state.user);
+    const {message} = useSelector(state => state.like);
+
+      let init = likes.some(i=>{
+        if (i._id===currentUser._id) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    const [liked, setLiked] = useState(init);
+    console.log("isliked" +init);
+    const [likeAlert, setlikeAlert] = useState(false);
+    const [noOfLikes, setnoOfLikes] = useState(likes.length);
+
 
     const handleLike = async () => {
       setLiked(!liked);
+      setlikeAlert(!likeAlert);
+      dispatch(likePost(postId));
+      if (liked) {
+        setnoOfLikes(noOfLikes-1);
+      } else {
+        setnoOfLikes(noOfLikes+1);
+
+      }
+      console.log(noOfLikes);
       /*
-      await dispatch(likePost(postId));
-  
       if (isAccount) {
         dispatch(getMyPosts());
       } else {
@@ -27,9 +54,16 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , ownerIma
       }
       */
     };
+    
+    
+
+    
+    
+    
   
     return (
     <div className='post'>
+      {likeAlert? <AlertTemplate severity={'success'} message={message} /> : null}
         <div className="postHeader">
           {isAccount?
             (<Button>
@@ -60,15 +94,19 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , ownerIma
           cursor: "pointer",
           margin: "1vmax 2vmax",
         }}
-        onClick={() => setLikesUser(!likesUser)}
+        onClick={() =>{ setLikesUser(!likesUser) }}
             disabled={likes.length === 0 ? true : false}
         >
-                <Typography>{likes.length} Likes</Typography>
+                <Typography>{noOfLikes} Likes</Typography>
         </button>
 
         <div className='postFooter'>
           <Button onClick={()=>handleLike()}>
-            {liked? <Favorite style={{color:"ff7300"}} /> :<FavoriteBorder />}
+            {liked? 
+                  <Favorite style={{color:"ff7300"}} />
+
+                                  
+                  :<FavoriteBorder />}
           </Button>
           <Button>
             <ChatBubbleOutline />

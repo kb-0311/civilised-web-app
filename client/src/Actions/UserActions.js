@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8000";
 
 
 export const loginUser = (email, password) => async (dispatch) => {
@@ -79,7 +78,6 @@ export const getAllUsers= (name=null) => async (dispatch) => {
     
 
     const {data} = !name? await axios.get(`/api/v1/users/all?name=`):await axios.get(`/api/v1/users/all?name=${name}`)
-    console.log(data);
     dispatch({
       type: "getAllUsersSuccess",
       payload: data.users,

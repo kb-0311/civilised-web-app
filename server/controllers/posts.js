@@ -99,6 +99,7 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
         return res.status(200).json({
           success: true,
           message: "Post Unliked",
+          isLiked :true
         });
       } else {
         post.likes.push(req.user._id);
@@ -108,6 +109,7 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
         return res.status(200).json({
           success: true,
           message: "Post Liked",
+          isLiked :false
         });
       }
     } catch (error) {
