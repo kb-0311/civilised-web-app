@@ -63,3 +63,39 @@ export const userReducer = createReducer(initialState , {
       },
 
 });
+
+export const getPostsReducer = createReducer(initialState, {
+  getPostsRequest: (state) => {
+    state.loading = true;
+  },
+  getPostsSuccess: (state, action) => {
+    state.loading = false;
+    state.posts = action.payload;
+  },
+  getPostsFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+  clearErrors: (state) => {
+    state.error = null;
+  },
+});
+
+
+export const allUsersReducer = createReducer(initialState, {
+  getAllUsersRequest: (state) => {
+    state.usersLoading = true;
+  },
+  getAllUsersSuccess: (state, action) => {
+    state.usersLoading = false;
+    state.users = action.payload;
+
+  },
+  getAllUsersFailure: (state, action) => {
+    state.usersLoading = false;
+    state.error = action.payload;
+  },
+  clearErrors: (state) => {
+    state.error = null;
+  },
+});

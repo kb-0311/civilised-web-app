@@ -50,3 +50,44 @@ export const loadUser = () => async (dispatch) => {
     });
   }
 };
+
+export const getPosts = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "getPostsRequest",
+    });
+
+    const { data } = await axios.get("/api/v1/posts");
+    dispatch({
+      type: "getPostsSuccess",
+      payload: data.posts,
+    });
+  } catch (error) {
+    dispatch({
+      type: "getPostsFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+
+export const getAllUsers= (name=null) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "getAllUsersRequest",
+    });
+    
+
+    const {data} = !name? await axios.get(`/api/v1/users/all?name=`):await axios.get(`/api/v1/users/all?name=${name}`)
+    console.log(data);
+    dispatch({
+      type: "getAllUsersSuccess",
+      payload: data.users,
+    });
+  } catch (error) {
+    dispatch({
+      type: "getAllUsersFailure",
+      payload: error.response.data.message,
+    });
+  }
+};

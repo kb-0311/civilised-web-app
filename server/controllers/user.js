@@ -79,7 +79,9 @@ exports.logout = catchAsyncErrors ( async (req , res , next)=>{
 
 //get all users
 exports.getAllUsers = catchAsyncErrors( async (req , res)=>{
-  const users = await User.find().populate("posts followers following");;
+  const users = await User.find({
+    name: { $regex: req.query.name, $options: "i" },
+  }).populate("posts followers following");;
   const numberOfUsers = await User.countDocuments();
 
   res.status(200).json({

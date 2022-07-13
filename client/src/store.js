@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { userReducer } from "./Reducers/UserReducer";
+import { allUsersReducer, getPostsReducer, userReducer } from "./Reducers/UserReducer";
 const initialState = {};
 const store = configureStore({
     reducer : {
         user : userReducer,
+        getPosts : getPostsReducer,
+        allUsers: allUsersReducer,
     }
 });
 
