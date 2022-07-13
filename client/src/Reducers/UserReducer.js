@@ -93,9 +93,9 @@ export const allUsersReducer = createReducer(initialState, {
   },
   getAllUsersFailure: (state, action) => {
     state.usersLoading = false;
-    state.error = action.payload;
+    state.userError = action.payload;
   },
   clearErrors: (state) => {
-    state.error = null;
+    state.userError = null;
   },
 });
