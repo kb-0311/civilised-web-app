@@ -5,6 +5,7 @@ import './Login.css'
 import {Typography , Button} from '@mui/material'
 import { Link } from 'react-router-dom';
 import { loginUser } from '../../Actions/UserActions';
+import Metadata from '../Metadata/Metadata';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ const Login = () => {
 
   return (
     <div className='login'>
+        <Metadata title='login' />
         <form className='loginForm' onSubmit={loginHandler}>
             <Typography variant="h3" style={{ padding: "2vmax" , color:"orange" }}>
                 IIITP CIVILISED

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import * as THREE from "three"
 import GLOBE from 'vanta/dist/vanta.globe.min.js'
 import Logo from '../../assets/logo.png'
+import Metadata from '../Metadata/Metadata'
 import './Landing.css'
 const Landing = () => {
 
@@ -40,7 +41,7 @@ const Landing = () => {
     
 
     <div className='hell'>
-        
+        <Metadata title='WELCOME !' />
         <main ref={ref} className="main">
             <Link to="/" className='land2' >
                 <div className='land'>

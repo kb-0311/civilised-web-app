@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllUsers, getPosts } from '../../Actions/UserActions'
 import Loader from '../Loader/Loader'
 import { Typography } from '@mui/material'
+import Metadata from '../Metadata/Metadata'
 const Home = () => {
   const dispatch=useDispatch();
   const {currentUser} = useSelector(state => state.user);
@@ -27,7 +28,7 @@ const Home = () => {
     <Loader />)
     :(
       <div className="home">
-
+          <Metadata title='Civilised' />
         <div className="homeleft">
           {
             posts&&posts.length>0 ? posts.map((post)=>
