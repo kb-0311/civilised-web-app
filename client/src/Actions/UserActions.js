@@ -89,3 +89,23 @@ export const getAllUsers= (name=null) => async (dispatch) => {
     });
   }
 };
+
+export const getMyPosts = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "myPostsRequest",
+    });
+
+    const { data } = await axios.get("/api/v1/me/posts");
+    console.log(data);
+    dispatch({
+      type: "myPostsSuccess",
+      payload: data.posts,
+    });
+  } catch (error) {
+    dispatch({
+      type: "myPostsFailure",
+      payload: error.response.data.message,
+    });
+  }
+};

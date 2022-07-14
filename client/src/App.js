@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import {BrowserRouter as Router , Routes , Route , Navigate} from 'react-router-dom';
 
 import './App.css';
@@ -9,9 +9,9 @@ import Login from './components/Login/Login';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './Actions/UserActions';
+import Account from './components/Account/Account.js'
 function App() {
 
-  const  {isAuthenticated} = useSelector(state=>state.user);
 
 
   const dispatch = useDispatch();
@@ -20,7 +20,9 @@ function App() {
     dispatch(loadUser());
   }, [dispatch])
   
-  
+  const  {isAuthenticated} = useSelector(state=>state.user);
+
+  const [reload, setReload] = useState(false);
 
 
   return (
@@ -29,9 +31,10 @@ function App() {
       {isAuthenticated && <Header/>}
         <Routes>
           
-          <Route path='/' element={!isAuthenticated? (<Navigate to='/login' />): <Home/> }/>
+          <Route path='/' element={!isAuthenticated? (<Navigate to='/login' />): (<Home/>)}/>
           <Route path='/welcome' element={<LandingPage/>}/>
           <Route path='/login' element={!isAuthenticated? <Login/> :(<Navigate to='/' />)}/>
+          <Route path='/account' element={!isAuthenticated? (<Navigate to='/' />): <Account/>}/>
 
 
         </Routes>

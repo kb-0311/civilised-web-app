@@ -9,22 +9,32 @@ import { Typography } from '@mui/material'
 import Metadata from '../Metadata/Metadata'
 const Home = () => {
   const dispatch=useDispatch();
-  const {currentUser} = useSelector(state => state.user);
   const { loading,posts,error} = useSelector(state =>state.getPosts)
-  const [user, setuser] = useState(null);
   const { usersLoading , users ,userError} =useSelector(state=>state.allUsers)
-  
-  useEffect(() => {
-    setuser(currentUser);
-    
-  }, [])
+  const { error: likeError, message } = useSelector((state) => state.like);
   useEffect(() => {
     dispatch(getPosts());
+
     dispatch(getAllUsers());
-  }, [])
+    
+  }, [dispatch])
+  useEffect(() => {
+    if (error) {
+      dispatch({ type: "clearErrors" });
+    }
+
+    if (likeError) {
+      dispatch({ type: "clearErrors" });
+    }
+    if (message) {
+      dispatch({ type: "clearMessage" });
+    }
+  }, [alert, error, message, likeError, dispatch]);
   
   
-  return loading||usersLoading? (
+  
+  
+  return loading===true||usersLoading===true? (
     <Loader />)
     :(
       <div className="home">

@@ -22,14 +22,12 @@ const CommentCard = ({
    
    let id = postId;
     await dispatch(deleteCommentOnPost(id, commentId));
-    dispatch(getPosts());
     
-    /*
+    
     if (isAccount) {
-      dispatch(getMyPosts());
     } else {
-      dispatch(getFollowingPosts());
-    }*/
+      dispatch(getPosts());
+    }
   };
   
   
