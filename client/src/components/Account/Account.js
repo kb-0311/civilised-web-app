@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Account.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {getMyPosts} from '../../Actions/UserActions'
 import Loader from '../Loader/Loader'
 import Metadata from '../Metadata/Metadata'
 import Post from '../Post/Post'
-import { Avatar, Button, Typography } from '@mui/material'
+import { Avatar, Button, Dialog, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
+import User from '../User/User'
 
 const Account = () => {
 
-
-
+    const [followersToggle, setFollowersToggle] = useState(false);
+    const [followingToggle, setFollowingToggle] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(getMyPosts());
@@ -70,7 +72,7 @@ const Account = () => {
             <Typography variant="h5">{currentUser.name}</Typography>
 
             <div>
-              <button>
+              <button onClick={()=>setFollowersToggle(!followersToggle)}>
                 <Typography>Followers</Typography>
               </button>
               <Typography>{currentUser.followers.length}</Typography>
@@ -78,7 +80,7 @@ const Account = () => {
             </div>
 
             <div>
-              <button>
+              <button onClick={()=>setFollowingToggle(!followingToggle)}>
                 <Typography>Following</Typography>
               </button>
               <Typography>{currentUser.followers.length}</Typography>
@@ -91,7 +93,65 @@ const Account = () => {
 
             </div>
 
-            <Button sx={{backgroundColor:"orange" , color:"black" , "&:hover":{"backgroundColor":"orangered" , "color":"white"}}}>Logout</Button>
+            <Button variant='contained' sx={{backgroundColor:"orange" , color:"black" , "&:hover":{"backgroundColor":"orangered" , "color":"white"}}}>Logout</Button>
+
+
+            <Link to='/me/update'> Edit Profile</Link>
+
+            <Link to='/me/password/update'>Change Password</Link>
+
+            <Button variant='outlined' sx={{margin:"2vmax" , color:"red" , borderColor:"red" ,"&:hover":{ "borderColor":"red","backgroundColor":"orangered" , "color":"white"}}} >Delete My Profile</Button>
+            
+
+
+            <Dialog
+              open={followersToggle}
+              onClose={() => setFollowersToggle(!followersToggle)}
+            >
+              <div className="DialogBox">
+                <Typography variant="h4">Followers</Typography>
+
+                {currentUser && currentUser.followers.length > 0 ? (
+                  currentUser.followers.map((follower) => (
+                    <User
+                      key={follower._id}
+                      userId={follower._id}
+                      name={follower.name}
+                      avatar={follower.avatar.url}
+                    />
+                  ))
+                ) : (
+                  <Typography style={{ margin: "2vmax" }}>
+                    You have no followers
+                  </Typography>
+                )}
+              </div>
+            </Dialog>
+
+            <Dialog
+              open={followingToggle}
+              onClose={() => setFollowingToggle(!followingToggle)}
+            >
+              <div className="DialogBox">
+                <Typography variant="h4">Following</Typography>
+
+                {currentUser && currentUser.following.length > 0 ? (
+                  currentUser.following.map((follow) => (
+                    <User
+                      key={follow._id}
+                      userId={follow._id}
+                      name={follow.name}
+                      avatar={follow.avatar.url}
+                    />
+                  ))
+                ) : (
+                  <Typography style={{ margin: "2vmax" }}>
+                    You're not following anyone
+                  </Typography>
+                )}
+              </div>
+              </Dialog>
+
         </div>
 
     </div>
