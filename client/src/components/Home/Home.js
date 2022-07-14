@@ -14,9 +14,9 @@ const Home = () => {
   const [user, setuser] = useState(null);
   const { usersLoading , users ,userError} =useSelector(state=>state.allUsers)
   
-
   useEffect(() => {
     setuser(currentUser);
+    
   }, [])
   useEffect(() => {
     dispatch(getPosts());
@@ -33,20 +33,20 @@ const Home = () => {
           {
             posts&&posts.length>0 ? posts.map((post)=>
               
-              (<Post 
-                key={post._id}
-                postId={post._id}
-                caption={post.caption}
-                postImage={post.image.url}
-                likes={post.likes}
-                isLiked={false}
-                comments={post.comments}
-                ownerImage={post.owner.avatar.url}
-                ownerName={post.owner.name}
-                ownerId={post.owner._id} 
-              />)
+            (<Post 
+              key={post._id}
+              postId={post._id}
+              caption={post.caption}
+              postImage={post.image.url}
+              likes={post.likes}
+              isLiked={false}
+              comments={post.comments}
+              ownerImage={post.owner.avatar.url}
+              ownerName={post.owner.name}
+              ownerId={post.owner._id} 
+            />)
               ): (<Typography variant='h6'>No posts</Typography>)
-          }
+        } 
           
         </div>
         <div className="homeright">

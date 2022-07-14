@@ -1,4 +1,4 @@
-import { Avatar, Button, Typography } from '@mui/material'
+import { Avatar, Button, Dialog, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import {
   MoreVert,
@@ -12,13 +12,16 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import './Post.css'
 import AlertTemplate from '../Metadata/AlertTemplate';
-import { likePost } from '../../Actions/PostsActions';
+import { addCommentOnPost, likePost } from '../../Actions/PostsActions';
 import { useEffect } from 'react';
 import { getPosts } from '../../Actions/UserActions';
+import User from '../User/User'
+import CommentCard from "../CommentCard/CommentCard.js";
 const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked , ownerImage ,ownerId ,ownerName , isDelete=false , isAccount=false}) => {
-  
     const dispatch = useDispatch();
     const [likesUser, setLikesUser] = useState(null);
+    const [commentValue, setCommentValue] = useState("");
+    const [commentToggle, setCommentToggle] = useState(false);
     const {currentUser} = useSelector(state => state.user);
     const {message} = useSelector(state => state.like);
 
@@ -29,8 +32,8 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
           return false;
         }
       })
+
     const [liked, setLiked] = useState(init);
-    console.log("isliked" +init);
     const [likeAlert, setlikeAlert] = useState(false);
     const [noOfLikes, setnoOfLikes] = useState(likes.length);
 
@@ -45,7 +48,6 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
         setnoOfLikes(noOfLikes+1);
 
       }
-      console.log(noOfLikes);
       /*
       if (isAccount) {
         dispatch(getMyPosts());
@@ -55,6 +57,10 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
       */
     };
     
+
+    const addCommentHandler =(e) =>{
+        dispatch(addCommentOnPost(postId , commentValue));
+    }
     
 
     
@@ -90,7 +96,7 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
         <button
         style={{
           border: "none",
-            backgroundColor: "orange",
+            backgroundColor: "white",
           cursor: "pointer",
           margin: "1vmax 2vmax",
         }}
@@ -108,7 +114,7 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
                                   
                   :<FavoriteBorder />}
           </Button>
-          <Button>
+          <Button onClick={()=>{setCommentToggle(!commentToggle)}}>
             <ChatBubbleOutline />
           </Button>
           { isDelete?
@@ -117,6 +123,64 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
           </Button>:null}
 
         </div>
+
+        <Dialog open={likesUser} onClose={() => setLikesUser(!likesUser)}>
+          <div className="DialogBox">
+            <Typography variant="h4">Liked By</Typography>
+
+              {likes.map((like) => (
+                <User
+                  key={like._id}
+                  userId={like._id}
+                  name={like.name}
+                  avatar={like.avatar.url}
+                />
+              ))}
+          </div>
+        </Dialog>
+
+        <Dialog
+        open={commentToggle}
+        onClose={() => setCommentToggle(!commentToggle)}
+      >
+        <div className="DialogBox">
+          <Typography variant="h4">Comments</Typography>
+
+          <form className="commentForm" onSubmit={addCommentHandler} >
+          
+            <input
+              type="text"
+              value={commentValue}
+              onChange={(e) => setCommentValue(e.target.value)}
+              placeholder="Comment Here..."
+              required
+            />
+
+            <Button type="submit" sx={{backgroundColor:"orange" , "&:hover":{"backgroundColor":"black"}}} variant="contained">
+              Add
+            </Button>
+          </form>
+
+          {comments.length > 0 ? (
+            comments.map((i) => (
+              
+              <CommentCard
+              
+                userId={i.commentedByUser._id}
+                name={i.commentedByUser.name}
+                avatar={i.commentedByUser.avatar.url}
+                comment={i.comment}
+                commentId={i._id}
+                key={i._id}
+                postId={postId}
+                isAccount={isAccount}
+              />
+            ))
+          ) : (
+            <Typography>No comments Yet</Typography>
+          )}
+        </div>
+      </Dialog>
 
             
         

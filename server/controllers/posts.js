@@ -196,8 +196,7 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
       // Checking if comment already exists
   
       post.comments.forEach((item, index) => {
-        console.log(item);
-        console.log(item);
+        
         if (item.commentedByUser.toString() === req.user._id.toString()) {
           commentIndex = index;
         }
@@ -232,17 +231,21 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
   
   exports.deleteComment =catchAsyncErrors( async (req, res , next) => {
     try {
-      const post = await Post.findById(req.params.id);
-  
+      
+      const post = await Post.findById(req.params.id).populate("owner likes comments.commentedByUser");
       if (!post) {
         return next(new ErrorHandler("Post Not Found", 400));
 
       }
-  
+      
       // Checking If owner wants to delete
-  
-      if (post.owner.toString() === req.user._id.toString()) {
-        const comment = await Post.findById(req.body.commentId);
+      if (post.owner.id=== req.user.id) {
+        const comment = post.comments.some((comment)=>{
+          if (comment.id===req.body.commentId) {
+            return comment
+          }
+           return null
+        });
         if (!comment) {
           return next(new ErrorHandler("COmment not found or already deleted", 404));
   
@@ -266,7 +269,7 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
         });
       } else {
         post.comments.forEach((item, index) => {
-          if (item.user.toString() === req.user._id.toString()) {
+          if (item.commentedByUser.id=== req.user.id) {
             return post.comments.splice(index, 1);
           }
         });
