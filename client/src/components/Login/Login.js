@@ -20,7 +20,7 @@ const Login = () => {
         dispatch(loginUser(email , password));
         if (!isAuthenticated) {
             setalert(true);
-        }
+        } 
     }
 
   return (

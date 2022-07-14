@@ -6,10 +6,10 @@
   }
   
   .loadingCircle {
-    width: 200px;
-    height: 200px;
+    width: 8vw;
+    height: 8vw;
     border-radius: 50%;
-    border: 10px solid #ffffff;
+    border: 10px solid #ff8c00;
     border-top: 10px solid rgb(34, 34, 34);
     border-bottom: 10px solid rgb(32, 23, 23);
     animation: loading 1s linear infinite;

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './Account.css'
 import {useDispatch, useSelector} from 'react-redux'
-import {getMyPosts} from '../../Actions/UserActions'
+import {getMyPosts, logoutUser} from '../../Actions/UserActions'
 import Loader from '../Loader/Loader'
 import Metadata from '../Metadata/Metadata'
 import Post from '../Post/Post'
 import { Avatar, Button, Dialog, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import User from '../User/User'
 
 const Account = () => {
@@ -14,6 +14,13 @@ const Account = () => {
     const [followersToggle, setFollowersToggle] = useState(false);
     const [followingToggle, setFollowingToggle] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const logoutHandler = async() => {
+      await dispatch(logoutUser());
+      navigate('/login', { replace: true });    };
+
+
     useEffect(() => {
       dispatch(getMyPosts());
        
@@ -83,7 +90,7 @@ const Account = () => {
               <button onClick={()=>setFollowingToggle(!followingToggle)}>
                 <Typography>Following</Typography>
               </button>
-              <Typography>{currentUser.followers.length}</Typography>
+              <Typography>{currentUser.following.length}</Typography>
 
             </div>
 
@@ -93,7 +100,10 @@ const Account = () => {
 
             </div>
 
-            <Button variant='contained' sx={{backgroundColor:"orange" , color:"black" , "&:hover":{"backgroundColor":"orangered" , "color":"white"}}}>Logout</Button>
+            <Button variant='contained' onClick={logoutHandler}
+              sx={{backgroundColor:"orange" , color:"black" , "&:hover":{"backgroundColor":"orangered" , "color":"white"}}}>
+              Logout
+            </Button>
 
 
             <Link to='/me/update'> Edit Profile</Link>

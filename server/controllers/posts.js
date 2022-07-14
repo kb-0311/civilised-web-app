@@ -6,22 +6,21 @@ const catchAsyncErrors = require ("../middlewares/catchAsyncErrors") ;
 
 exports.createPost = catchAsyncErrors( async (req, res ,next) => {
     try {
-        /*
+        
       const myCloud = await cloudinary.v2.uploader.upload(req.body.image, {
         folder: "civilised_posts",
       });
-      */
+      
      const image = req.body.image;
       const caption = req.body.caption;
       const newPostData = {
         caption: caption,
         image: {
-            public_id: image.public_id,
-            url: image.secure_url,
-        /*
+            
+        
           public_id: myCloud.public_id,
           url: myCloud.secure_url,
-          */
+          
         },
         owner: req.user._id,
       };

@@ -10,6 +10,7 @@ import Login from './components/Login/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './Actions/UserActions';
 import Account from './components/Account/Account.js'
+import NewPost from './components/NewPost/NewPost';
 function App() {
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route path='/welcome' element={<LandingPage/>}/>
           <Route path='/login' element={!isAuthenticated? <Login/> :(<Navigate to='/' replace={true}/>)}/>
           <Route path='/account' element={!isAuthenticated? (<Navigate to='/' />): <Account/>}/>
+          <Route path='/post/new' element={!isAuthenticated? (<Navigate to='/' />): <NewPost/>}/>
 
 
         </Routes>
