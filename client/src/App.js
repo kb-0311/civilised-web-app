@@ -31,9 +31,9 @@ function App() {
       {isAuthenticated && <Header/>}
         <Routes>
           
-          <Route path='/' element={!isAuthenticated? (<Navigate to='/login' />): (<Home/>)}/>
+          <Route path='/' element={!isAuthenticated? (<Navigate to='/login' replace={true} />): (<Home/>)}/>
           <Route path='/welcome' element={<LandingPage/>}/>
-          <Route path='/login' element={!isAuthenticated? <Login/> :(<Navigate to='/' />)}/>
+          <Route path='/login' element={!isAuthenticated? <Login/> :(<Navigate to='/' replace={true}/>)}/>
           <Route path='/account' element={!isAuthenticated? (<Navigate to='/' />): <Account/>}/>
 
 

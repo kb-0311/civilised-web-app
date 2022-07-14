@@ -38,7 +38,7 @@ const CommentCard = ({
         <img src={avatar} alt={name} />
         <Typography style={{ minWidth: "6vmax" }}>{name}</Typography>
       </Link>
-      <Typography>{comment}</Typography>
+      <Typography style={{ paddingLeft: "3vmax"}}>{comment}</Typography>
 
       {isAccount ? (
         <Button onClick={deleteCommentHandle}>

@@ -60,7 +60,7 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
 
     const addCommentHandler =async (e) =>{
       
-        await dispatch(addCommentOnPost(postId , commentValue));
+        dispatch(addCommentOnPost(postId , commentValue));
     }
     
 

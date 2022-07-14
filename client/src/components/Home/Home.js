@@ -26,9 +26,7 @@ const Home = () => {
     if (likeError) {
       dispatch({ type: "clearErrors" });
     }
-    if (message) {
-      dispatch({ type: "clearMessage" });
-    }
+    
   }, [alert, error, message, likeError, dispatch]);
   
   
