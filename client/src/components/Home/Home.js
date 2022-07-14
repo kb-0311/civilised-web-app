@@ -27,7 +27,7 @@ const Home = () => {
       dispatch({ type: "clearErrors" });
     }
     
-  }, [alert, error, message, likeError, dispatch]);
+  }, [ error,  likeError, dispatch]);
   
   
   

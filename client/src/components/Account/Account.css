@@ -59,11 +59,13 @@
   }
   
   .accountright > div > button:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
   .accountright > div > button {
     border: none;
-    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) ;
+    background-color: transparent;
+    border-radius: 15%;
     cursor: pointer;
     transition: all 0.5s;
     padding: 0.5vmax 1vmax;

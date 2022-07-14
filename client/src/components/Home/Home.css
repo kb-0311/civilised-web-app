@@ -34,7 +34,7 @@
     width: 3vmax;
     margin: 1vmax;
     border-radius: 100%;
-    border: 3px solid rgb(255, 201, 201);
+    border: 3px solid rgb(0, 0, 0);
   }
   
   .homeUser:hover {

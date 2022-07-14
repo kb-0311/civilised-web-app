@@ -13,9 +13,9 @@ const Login = () => {
     const dispatch = useDispatch();
     const alert = useAlert();
 
-    const loginHandler = (e) =>{
+    const loginHandler = async(e) =>{
         e.preventDefault();
-        dispatch(loginUser(email , password));
+        await dispatch(loginUser(email , password));
     }
 
   return (
