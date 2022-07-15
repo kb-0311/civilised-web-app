@@ -74,8 +74,11 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
 
     const deletePostHandler = async () => {
       
-      dispatch(deletePost(postId));
-      window.location.reload();
+      await dispatch(deletePost(postId));
+      
+        window.location.reload();
+
+      
       
     };
 

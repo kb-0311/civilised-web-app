@@ -35,10 +35,10 @@ const NewPost = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        dispatch(createNewPost(caption, image));
-        dispatch(loadUser());
+        await dispatch(createNewPost(caption, image));
+        await dispatch(loadUser());
         if (!alertMessage) {
-            navigate("/account" ,{replace:true});
+          window.location.reload();
         }
         
     };
