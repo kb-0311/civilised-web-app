@@ -139,7 +139,7 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
           </Button>
           { isDelete?
           <Button onClick={deletePostHandler}>
-             <Delete />
+             <DeleteOutline />
           </Button>:null}
 
         </div>

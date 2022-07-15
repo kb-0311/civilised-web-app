@@ -35,7 +35,7 @@
   
   .postFooter > button {
     color: rgba(0, 0, 0, 0.767);
-    margin: 0 1vmax;
+    margin: 0 2.7vmax;
     border-radius: 100%;
     transition: all 0.3s;
   }

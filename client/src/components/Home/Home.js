@@ -9,6 +9,7 @@ import { Typography } from '@mui/material'
 import Metadata from '../Metadata/Metadata'
 const Home = () => {
   const dispatch=useDispatch();
+  const {currentUser} =useSelector(state=>state.user);
   const { loading,posts,error} = useSelector(state =>state.getPosts)
   const { usersLoading , users ,userError} =useSelector(state=>state.allUsers)
   const { error: likeError, message } = useSelector((state) => state.like);
@@ -48,6 +49,7 @@ const Home = () => {
               postImage={post.image.url}
               likes={post.likes}
               isLiked={false}
+              isAccount={post.owner._id===currentUser._id}
               comments={post.comments}
               ownerImage={post.owner.avatar.url}
               ownerName={post.owner.name}

@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './Actions/UserActions';
 import Account from './components/Account/Account.js'
 import NewPost from './components/NewPost/NewPost';
+import Register from './components/Register/Register';
+import UpdateProfile from './components/UpdateProfile/UpdateProfile';
 function App() {
 
 
@@ -37,6 +39,8 @@ function App() {
           <Route path='/login' element={!isAuthenticated? <Login/> :(<Navigate to='/' replace={true}/>)}/>
           <Route path='/account' element={!isAuthenticated? (<Navigate to='/' />): <Account/>}/>
           <Route path='/post/new' element={!isAuthenticated? (<Navigate to='/' />): <NewPost/>}/>
+          <Route path='/register' element={!isAuthenticated?  <Register/> : (<Navigate to='/login' />) }/>
+          <Route path='/me/update' element={!isAuthenticated?  (<Navigate to='/login' />) : <UpdateProfile/>  }/>
 
 
         </Routes>

@@ -9,7 +9,9 @@ const cloudinary = require("cloudinary");
 
 
 exports.registerUser = catchAsyncErrors( async (req , res ,next)=> {
-    /*
+    if (!req.body.avatar) {
+      return next(new ErrorHandler("Please insert your avatar" , 404))
+    }
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: "civilised_avatars",
         width: 150,
@@ -17,18 +19,22 @@ exports.registerUser = catchAsyncErrors( async (req , res ,next)=> {
         public_id: `${Date.now()}`,
         resource_type: "auto",
       });
-    */
-    const {name , email , password , avatar} = req.body;
+    
+    const {name , email , password } = req.body;
+    const checkIfUserExists = await User.find({email:email});
+    console.log(checkIfUserExists);
+    if (!checkIfUserExists) {
+      return next(new ErrorHandler("This Email Already exists" , 403))
+    }
 
     const user = await User.create({
         name , 
         email ,
         password ,
-         avatar ,
-         /*{
+         avatar :{
             public_id: myCloud.public_id,
             url: myCloud.secure_url,
-         }*/
+         }
     })
 
     sendToken(user , 201 , res);
@@ -191,17 +197,15 @@ exports.updateProfile =catchAsyncErrors( async (req, res ,next) => {
     }
 
     if (avatar) {
-      /*
+      
       await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
       const myCloud = await cloudinary.v2.uploader.upload(avatar, {
-        folder: "avatars",
+        folder: "civilised_avatars",
       });
       user.avatar.public_id = myCloud.public_id;
       user.avatar.url = myCloud.secure_url;
-      */
-      user.avatar.public_id = avatar.public_id;
-      user.avatar.url = avatar.url;
+      
     }
 
     await user.save();

@@ -164,7 +164,7 @@ export const updateProfile = (name, email, avatar) => async (dispatch) => {
     });
 
     const { data } = await axios.put(
-      "/api/v1/update/profile",
+      "/api/v1/me/update",
       { name, email, avatar },
       {
         headers: {
