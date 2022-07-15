@@ -25,8 +25,9 @@ const CommentCard = ({
     
     
     if (isAccount) {
-    } else {
       dispatch(getPosts());
+
+    } else {
     }
   };
   

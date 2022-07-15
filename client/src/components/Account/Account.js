@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Account.css'
 import {useDispatch, useSelector} from 'react-redux'
-import {getMyPosts, logoutUser} from '../../Actions/UserActions'
+import {deleteMyProfile, getMyPosts, logoutUser} from '../../Actions/UserActions'
 import Loader from '../Loader/Loader'
 import Metadata from '../Metadata/Metadata'
 import Post from '../Post/Post'
@@ -18,7 +18,16 @@ const Account = () => {
 
     const logoutHandler = async() => {
       await dispatch(logoutUser());
-      navigate('/login', { replace: true });    };
+      navigate('/login', { replace: true });  
+    };
+
+    const deleteProfileHandler = async () => {
+      await dispatch(deleteMyProfile());
+      window.location.reload();
+      //navigate('/login', { replace: true });  
+
+    };
+
 
 
     useEffect(() => {
@@ -27,8 +36,9 @@ const Account = () => {
     }, [dispatch])
 
     const {loading,error , posts}=useSelector(state=>state.myposts);
-    const { error: likeError, message } = useSelector((state) => state.like);
+    const { error: likeError, message ,loading:deleteLoading } = useSelector((state) => state.like);
     const {currentUser}  =useSelector(state=>state.user);
+    
 
     useEffect(() => {
       if (error) {
@@ -110,7 +120,7 @@ const Account = () => {
 
             <Link to='/me/password/update'>Change Password</Link>
 
-            <Button variant='outlined' sx={{margin:"2vmax" , color:"red" , borderColor:"red" ,"&:hover":{ "borderColor":"red","backgroundColor":"orangered" , "color":"white"}}} >Delete My Profile</Button>
+            <Button onClick={deleteProfileHandler} disabled={deleteLoading} variant='outlined' sx={{margin:"2vmax" , color:"red" , borderColor:"red" ,"&:hover":{ "borderColor":"red","backgroundColor":"orangered" , "color":"white"}}} >Delete My Profile</Button>
             
 
 

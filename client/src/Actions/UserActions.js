@@ -220,7 +220,7 @@ export const deleteMyProfile = () => async (dispatch) => {
       type: "deleteProfileRequest",
     });
 
-    const { data } = await axios.delete("/api/v1/delete/me");
+    const { data } = await axios.delete("/api/v1/me/delete");
 
     dispatch({
       type: "deleteProfileSuccess",
