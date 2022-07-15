@@ -97,6 +97,17 @@ exports.getAllUsers = catchAsyncErrors( async (req , res)=>{
 })
 })
 
+exports.getUser = catchAsyncErrors( async (req , res ,next)=>{
+  const user = await User.findById(req.params.id).populate("posts followers following");
+  if (!user) {
+    return next(new ErrorHandler("User does not exist") ,404);
+  }
+
+  res.status(200).json({
+    success : true ,
+    user  : user
+})
+})
 
 //Get My Profile
 exports.getMyProfile = catchAsyncErrors( async (req , res)=>{

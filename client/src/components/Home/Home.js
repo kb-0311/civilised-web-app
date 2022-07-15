@@ -67,7 +67,7 @@ const Home = () => {
               key={user._id}
               userId={user._id}
               name={user.name}
-              avatar={'https://media-exp1.licdn.com/dms/image/C5603AQHlHovW8nMkFA/profile-displayphoto-shrink_200_200/0/1610020467592?e=2147483647&v=beta&t=vBPLqLRHM1Py_hRw7vSbT86TKE7UREGqCFyvoYGyJoc'}
+              avatar={user.avatar.url}
               //avatar={currentUser.avatar.url}
             />
             )) : null
