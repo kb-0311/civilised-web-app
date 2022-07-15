@@ -193,7 +193,7 @@ export const updatePassword =
       });
 
       const { data } = await axios.put(
-        "/api/v1/update/password",
+        "/api/v1/me/password/update",
         { oldPassword, newPassword },
         {
           headers: {

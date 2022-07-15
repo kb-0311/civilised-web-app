@@ -17,7 +17,8 @@ const Login = () => {
 
     const loginHandler = async(e) =>{
         e.preventDefault();
-        dispatch(loginUser(email , password));
+        await dispatch(loginUser(email , password));
+        window.location.reload();
         if (!isAuthenticated) {
             setalert(true);
         } 

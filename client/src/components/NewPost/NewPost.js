@@ -48,7 +48,7 @@ const NewPost = () => {
         if (error) {
             setalert(true);
             setalertMessage(error);
-          dispatch({ type: "clearErrors" });
+            dispatch({ type: "clearErrors" });
         }
     
       }, [dispatch, error]);

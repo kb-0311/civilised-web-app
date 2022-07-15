@@ -13,6 +13,7 @@ import Account from './components/Account/Account.js'
 import NewPost from './components/NewPost/NewPost';
 import Register from './components/Register/Register';
 import UpdateProfile from './components/UpdateProfile/UpdateProfile';
+import UpdatePassword from './components/UpdatePassword/UpdatePassword';
 function App() {
 
 
@@ -41,6 +42,7 @@ function App() {
           <Route path='/post/new' element={!isAuthenticated? (<Navigate to='/' />): <NewPost/>}/>
           <Route path='/register' element={!isAuthenticated?  <Register/> : (<Navigate to='/login' />) }/>
           <Route path='/me/update' element={!isAuthenticated?  (<Navigate to='/login' />) : <UpdateProfile/>  }/>
+          <Route path='/me/password/update' element={!isAuthenticated?  (<Navigate to='/login' />) : <UpdatePassword/>  }/>
 
 
         </Routes>
