@@ -8,20 +8,23 @@ import {
   DeleteOutline,
   Delete,
 } from "@mui/icons-material";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import './Post.css'
 import AlertTemplate from '../Metadata/AlertTemplate';
-import { addCommentOnPost, likePost } from '../../Actions/PostsActions';
+import { addCommentOnPost, deletePost, likePost, updatePost } from '../../Actions/PostsActions';
 import { useEffect } from 'react';
 import { getPosts } from '../../Actions/UserActions';
 import User from '../User/User'
 import CommentCard from "../CommentCard/CommentCard.js";
 const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked , ownerImage ,ownerId ,ownerName , isDelete=false , isAccount=false}) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [likesUser, setLikesUser] = useState(null);
     const [commentValue, setCommentValue] = useState("");
     const [commentToggle, setCommentToggle] = useState(false);
+    const [captionValue, setCaptionValue] = useState(caption);
+    const [captionToggle, setCaptionToggle] = useState(false);
     const {currentUser} = useSelector(state => state.user);
     const {message} = useSelector(state => state.like);
 
@@ -36,6 +39,8 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
     const [liked, setLiked] = useState(init);
     const [likeAlert, setlikeAlert] = useState(false);
     const [noOfLikes, setnoOfLikes] = useState(likes.length);
+    
+
 
 
     const handleLike = async () => {
@@ -63,6 +68,16 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
         dispatch(addCommentOnPost(postId , commentValue));
     }
     
+    const updateCaptionHandler = (e) => {
+      dispatch(updatePost(captionValue, postId));
+    };
+
+    const deletePostHandler = async () => {
+      
+      dispatch(deletePost(postId));
+      window.location.reload();
+      
+    };
 
     
     
@@ -71,9 +86,10 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
     return (
     <div className='post'>
       {likeAlert? <AlertTemplate severity={'success'} message={message} /> : null}
+
         <div className="postHeader">
           {isAccount?
-            (<Button>
+            (<Button onClick={()=>{setCaptionToggle(!captionToggle)}}>
               <MoreVert />
             </Button>)
             :
@@ -119,7 +135,7 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
             <ChatBubbleOutline />
           </Button>
           { isDelete?
-          <Button>
+          <Button onClick={deletePostHandler}>
              <Delete />
           </Button>:null}
 
@@ -157,7 +173,7 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
               required
             />
 
-            <Button type="submit" sx={{backgroundColor:"orange" , "&:hover":{"backgroundColor":"black"}}} variant="contained">
+            <Button type="submit" sx={{backgroundColor:"orange" , "&:hover":{"backgroundColor":"rgb(255, 123, 0)"}}} variant="contained">
               Add
             </Button>
           </form>
@@ -182,6 +198,30 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
           )}
         </div>
       </Dialog>
+
+      <Dialog
+        open={captionToggle}
+        onClose={() => setCaptionToggle(!captionToggle)}
+      >
+        <div className="DialogBox">
+          <Typography variant="h4">Update Caption</Typography>
+
+          <form className="commentForm" onSubmit={updateCaptionHandler}>
+            <input
+              type="text"
+              value={captionValue}
+              onChange={(e) => setCaptionValue(e.target.value)}
+              placeholder="Caption Here..."
+              required
+            />
+
+            <Button type="submit" sx={{backgroundColor:"orange" , "&:hover":{"backgroundColor":"rgb(255, 123, 0)"}}} variant="contained">
+              Update
+            </Button>
+          </form>
+        </div>
+      </Dialog>
+    
 
             
         

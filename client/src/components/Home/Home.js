@@ -58,6 +58,7 @@ const Home = () => {
           
         </div>
         <div className="homeright">
+          <Typography variant='h6'>COMPARTMENTS IN THE TRAIN 🚞 </Typography>
           {
             users ? users.map((user)=>(
               <User
