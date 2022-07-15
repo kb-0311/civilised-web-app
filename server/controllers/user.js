@@ -99,6 +99,7 @@ exports.getAllUsers = catchAsyncErrors( async (req , res)=>{
 
 exports.getUser = catchAsyncErrors( async (req , res ,next)=>{
   const user = await User.findById(req.params.id).populate("posts followers following");
+  console.log(user);
   if (!user) {
     return next(new ErrorHandler("User does not exist") ,404);
   }

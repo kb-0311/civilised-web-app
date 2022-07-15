@@ -36,7 +36,10 @@ const Register = () => {
   const submitHandler =async (e) => {
     e.preventDefault();
     await dispatch(registerUser(name, email, password, avatar));
-    window.location.reload();
+    if (!error) {
+      window.location.reload();
+
+    }
     
     
   };

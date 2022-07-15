@@ -23,12 +23,7 @@ const CommentCard = ({
    let id = postId;
     await dispatch(deleteCommentOnPost(id, commentId));
     
-    
-    if (isAccount) {
-      dispatch(getPosts());
-
-    } else {
-    }
+    window.location.reload();
   };
   
   

@@ -76,7 +76,7 @@ const Post = ({postId , caption , postImage , likes=[] , comments =[] , isLiked 
       
       await dispatch(deletePost(postId));
       
-        window.location.reload();
+      window.location.reload();
 
       
       

@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {Typography } from '@mui/material'
 
-const User = ({userId , name , avatar}) => {
+const User = ({userId , name , avatar ,isSearch=false}) => {
+  const [color, setColor] = useState("black");
+  useEffect(() => {
+    if (isSearch) {
+      setColor("orange");
+    
+    } else {
+      setColor("black");
+    }
+  }, [isSearch])
+  
   return (
     
         
         <Link to={`/user/${userId}`} className='homeUser'>
             <img src={avatar} alt={name} />
-            <Typography>{name}</Typography>
+            <Typography sx={{color:color}}>{name}</Typography>
         </Link>
     
     
