@@ -36,9 +36,9 @@ const NewPost = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         dispatch(createNewPost(caption, image));
-
+        dispatch(loadUser());
         if (!alertMessage) {
-            navigate("/account");
+            navigate("/account" ,{replace:true});
         }
         
     };

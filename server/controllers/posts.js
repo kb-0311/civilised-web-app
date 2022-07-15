@@ -57,9 +57,9 @@ exports.createPost = catchAsyncErrors( async (req, res ,next) => {
         return next(new ErrorHandler("You are not Authorised", 401));
 
       }
-      /*
+      
       await cloudinary.v2.uploader.destroy(post.image.public_id);
-      */
+      
       await post.remove();
   
       const user = await User.findById(req.user._id);
