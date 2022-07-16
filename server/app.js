@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
+const path = require('path');
 const fileUpload = require('express-fileupload');
 const cookieParser = require("cookie-parser");
 const errorMiddleware = require("./middlewares/error");
@@ -32,7 +33,10 @@ app.use('/api/v1' , userRoute);
 app.use('/api/v1' , postRoute);
 
 app.use(errorMiddleware);
-
+app.use(express.static(path.join(__dirname,"../client/build")))
+app.get('*' ,(req,res)=>{
+  res.sendFile(path.resolve(__dirname,"../client/build/index.html"))
+})
 
 
 
