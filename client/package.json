@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@blaumaus/react-alert": "^7.0.5",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
@@ -14,8 +13,6 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "react": "^18.2.0",
-    "react-alert": "^7.0.3",
-    "react-alert-template-basic": "^1.0.2",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-redux": "^8.0.2",
