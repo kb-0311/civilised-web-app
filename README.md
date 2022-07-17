@@ -8,4 +8,5 @@ The Complete project consists of 3 major components ->
 
 
 ## The Architecture
+![Untitled (1080 × 1920 px) (1920 × 1080 px)](https://user-images.githubusercontent.com/96020697/179420574-5f7212e1-fb0a-42f1-8a2e-8314f8e5da09.png)
 
