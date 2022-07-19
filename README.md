@@ -17,12 +17,19 @@ The Complete project consists of 3 major components ->
 
 2. `Redux` - for centralizing the data storage, utilizing axios within the actions to make api requests and interact with the server, and global client-side state management.
 
-3. `NodeJs` - using the asyncronous call-back based single-threaded nature as well as utlizing background threads for blocking tasks made it the best choice for writing the server-side code for the application.
+3. `NodeJs` - for  creating the server and  using the asyncronous call-back based single-threaded nature as well as utlizing background threads for blocking tasks made it the best choice for writing the server-side code for the application.
 
 4. `ExpressJS` - for Implementing the MVC architecture to the server-side code , creating apis with custom routes and http METHODS, used express properties for creating a custom error middle-ware for the backend as well as a middleware which validates the authentication status of the user on the server-side.
 
 4. `MongoDB`- for storing user data and their posts, the images are stored with their cloudinary bucket public id and url to be fetched on the server-side and rendered on the client-side.
 
 5. `Cloudinary`- the image storage bucket as well as file management utility for this application.
+
+### **The Civilised Chat**(Done)-
+1. `React` - for creating and implementing resuable custom components and serving the site.
+
+2. `NodeJs` - for  creating the server and using the asyncronous call-back based single-threaded nature as well as utlizing background threads for blocking tasks made it the best choice for writing the server-side code for the application.
+
+3. `Socket.io` - for implementing web-sockets on server connection and for emitting and handling socket events to provide real-time data streaming.  
 
 
