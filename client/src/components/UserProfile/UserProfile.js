@@ -1,7 +1,7 @@
 import { Avatar, Button, Dialog, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import { followAndUnfollowUser, getUserPosts, getUserProfile } from '../../Actions/UserActions';
 import Loader from '../Loader/Loader';
 import AlertTemplate from '../Metadata/AlertTemplate';
@@ -32,7 +32,6 @@ const UserProfile = () => {
     const [followingToggle, setFollowingToggle] = useState(false);
     const [following, setFollowing] = useState(false);
     const [myProfile, setMyProfile] = useState(false);
-    const [profileName, setprofileName] = useState("");
     const [errorAlert, seterrorAlert] = useState(false);
     const [errorAlertMessage, seterrorAlertMessage] = useState("");
     const [successAlert, setsuccessAlert] = useState(false);
@@ -54,10 +53,16 @@ const UserProfile = () => {
     }
   
     useEffect(() => {
+      
+      if ( (user==undefined) ||(user&&user._id!=params.id)) {
+        setFollowersToggle(false)
+        setFollowingToggle(false);
         getUserProfileFuck();
 
+      }
+
         
-    }, []);
+    }, [user ,params ,getUserProfileFuck]);
 
     
     
@@ -65,15 +70,23 @@ const UserProfile = () => {
     useEffect(() => {
       if (me._id === params.id) {
         setMyProfile(true);
+      } else {
+        setMyProfile(false);
       }
       if (user) {
-        user.followers.forEach((item) => {
-          if (item._id === me._id) {
-            setFollowing(true);
-          } else {
-            setFollowing(false);
-          }
-        });
+        if (user&&user.followers==null) {
+          setFollowing(false);
+          
+        } else {
+          user && user.followers.forEach((item) => {
+            if (item._id === me._id) {
+              setFollowing(true);
+            } else {
+              setFollowing(false);
+            }
+          });
+        }
+        
       }
     }, [user, me._id, params.id]);
     

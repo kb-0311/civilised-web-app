@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import {Typography } from '@mui/material'
 
 const User = ({userId , name , avatar ,isSearch=false}) => {
+
   const [color, setColor] = useState("black");
   useEffect(() => {
     if (isSearch) {
@@ -12,6 +13,9 @@ const User = ({userId , name , avatar ,isSearch=false}) => {
       setColor("black");
     }
   }, [isSearch])
+
+  
+
   
   return (
     

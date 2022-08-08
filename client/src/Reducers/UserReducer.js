@@ -102,7 +102,7 @@ export const allUsersReducer = createReducer(initialState, {
 
 export const userProfileReducer = createReducer(initialState, {
   userProfileRequest: (state) => {
-    state.loading = true;
+    state.loading = true
   },
   userProfileSuccess: (state, action) => {
     state.loading = false;

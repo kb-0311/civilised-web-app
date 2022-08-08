@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import {BrowserRouter as Router , Routes , Route , Navigate} from 'react-router-dom';
 
 import './App.css';
@@ -31,7 +31,6 @@ function App() {
   
   const  {isAuthenticated} = useSelector(state=>state.user);
 
-  const [reload, setReload] = useState(false);
 
 
   return (
