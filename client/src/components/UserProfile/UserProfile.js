@@ -74,7 +74,7 @@ const UserProfile = () => {
         setMyProfile(false);
       }
       if (user) {
-        if (user&&user.followers==null) {
+        if (user&&user.followers.length===0) {
           setFollowing(false);
           
         } else {
