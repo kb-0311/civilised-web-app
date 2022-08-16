@@ -25,11 +25,23 @@ The Complete project consists of 3 major components ->
 
 5. `Cloudinary`- the image storage bucket as well as file management utility for this application.
 
-### **The Civilised Chat**(Done)-
+### **[The Civilised Forum and Notices](https://github.com/kb-0311/civilised-forum-and-notices)**(Done)-
+1. `NextJS` - for server-side rendering or static side genaration to the served client whichever is more optimised at the given time and implmenting React underthehood for creating and implementing resuable custom components and serving the site.
+
+2. `TypeScript` - for defining types for the objects and data members exhanged between the apollo client and graphql server. 
+
+3. `GraphQL` -  Utilized to make the backend APIs fast, flexible, and developer-friendly by fetching only data fields necessary from multiple data sources, here in this case a remote deployed postgresQL Database. Used Query and Mutations in the graph server for CRUDifying the PostgresQL instance.
+
+4. `Apollo CLent` - Implemented Apollo Client to define,implement and utilize the server side graphQL Queries and Mutations. Implemenented in memory caching to opimize the entire User experience by making the time intensive DB roud trip only when necessary.  
+
+2. `NextAuth` - for implementing OAuth 2.0 Google Strategy.
+
+### **[The Civilised Chat](https://github.com/kb-0311/civilised-chat)**(Done)-
 1. `React` - for creating and implementing resuable custom components and serving the site.
 
 2. `NodeJs` - for  creating the server and using the asyncronous call-back based single-threaded nature as well as utlizing background threads for blocking tasks made it the best choice for writing the server-side code for the application.
 
 3. `Socket.io` - for implementing web-sockets on server connection and for emitting and handling socket events to provide real-time data streaming.  
+
 
 
