@@ -8,7 +8,7 @@ The Complete project consists of 3 major components ->
 
 
 ## The Architecture
-![Untitled (1080 × 1920 px) (1920 × 1080 px) (2400 × 1080 px)](https://user-images.githubusercontent.com/96020697/184794328-9241a8e8-eaa8-42e7-8a3d-611bf787cbef.png)
+![Untitled (1080 × 1920 px) (1920 × 1080 px) (2400 × 1080 px) (1)](https://user-images.githubusercontent.com/96020697/185734831-58eb7df9-0af6-4209-bb97-96ce2706cdb4.png)
 
 
 ## Tech-Stack Utilized
